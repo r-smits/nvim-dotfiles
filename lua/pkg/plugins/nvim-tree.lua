@@ -1,0 +1,66 @@
+return {
+	"nvim-tree/nvim-tree.lua",
+	dependencies = {
+		"nvim-tree/nvim-web-devicons"
+	},
+	config = function()
+
+		-- To enable highlight groups - not possible due to xterm=256 color mode.
+		-- vim.opt.termguicolors = true
+
+		local nvimtree = require("nvim-tree")
+		local api = require("nvim-tree.api")
+		vim.g.loaded_netrwPlugin = 1
+		vim.g.loaded_netrw = 1
+
+		nvimtree.setup({
+			view = {
+				width = 30,
+			},
+			filters = {
+				custom = {".DS_Store"},
+			},
+			disable_netrw 	= true,
+			hijack_netrw	= true,
+			hijack_cursor	= true,
+			update_focused_file = {
+				enable		= true,
+				update_root 	= true,
+			},
+			root_dirs 	= {"~"},
+			prefer_startup_root = true,
+			renderer = {
+				highlight_git = true,
+				indent_markers = {
+					enable = true,
+					icons = {
+						corner = "╰",
+						edge = "│",
+						item = "│",
+						bottom = "─",
+						none = " ",
+					},
+				},
+				icons = {
+					glyphs = {
+						git = {
+							unstaged		= "",
+							staged			= "",
+							unmerged		= "",
+							renamed			= "→",
+							untracked		= "",
+							deleted			= "−",
+							ignored			= "◌",
+						},
+					},
+				},
+			},
+		})
+
+		vim.keymap.set("n", "<space>tt", "<cmd>NvimTreeToggle<CR>")
+		vim.keymap.set("n", "<space>fa", "<cmd>NvimTreeCollapse<CR>")
+		vim.keymap.set("n", "<space>ff", "<cmd>NvimTreeCollapseKeepBuffers<CR>")
+		vim.keymap.set("n", "<space>//", "<cmd>NvimTreeFindFile<CR>")
+		api.tree.open({path="~"})
+	end,
+}
