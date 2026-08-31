@@ -100,9 +100,10 @@ return {
 				vim.fs.dirname(vim.fs.find('.git', { path = ".", upward = true })[1]),
 			},
 		})
-		vim.lsp.config("basedpyright", {
-			name = "basedpyright",
-			cmd = { "basedpyright-langserver", "--stdio" },
+		vim.lsp.config("pylsp", {
+			name = "pylsp",
+			cmd = { "pylsp" },
+			autostart = true,
 			capabilities = capabilities,
 			filetypes = { "python" },
 			root_markers = {
@@ -114,37 +115,13 @@ return {
 					vim.fs.dirname(vim.fs.find('.git', { path = ".", upward = true })[1]),
 				},
 			},
-			settings = {
-				basedpyright = {
-					disableLanguageServices = false,
-					disableOrganizeImports = false,
-					disableTaggedHints = false,
-					analysis = {
-						diagnosticSeverityOverrides = {
-							reportUnknownMemberType = false,
-						},
-						inlayHints = {
-							variableTypes = false,
-							callArgumentNames = false,
-							callArgumentNamesMatching = false,
-							functionReturnTypes = false,
-							genericTypes = false,
-						},
-						useTypingExtensions = false,
-						fileEnumerationTimeout = 10,
-						autoImportCompletions = true,
-						autoFormatStrings = true,
-						autoSearchPaths = true,
-						diagnosticMode = "openFilesOnly"
-					},
-				}
-			}
+			settings = {}
 		})
 
 		local ensure_installed = {
 			"ruff",
 			"clangd",
-			"basedpyright",
+			"pylsp",
 			"lua_ls",
 		}
 
@@ -153,8 +130,7 @@ return {
 
 		vim.lsp.enable("lua_ls")
 		vim.lsp.enable("ruff")
-		-- vim.lsp.enable("pylsp")
-		vim.lsp.enable("basedpyright")
+		vim.lsp.enable("pylsp")
 		vim.lsp.enable("clangd")
 
 		-- Luasnip is a snippet engine that will trigger once autocomplete starts
