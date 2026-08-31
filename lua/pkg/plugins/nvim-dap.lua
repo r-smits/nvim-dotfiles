@@ -12,7 +12,7 @@ return {
 			port = "${port}",
 			executable = {
 				command = mason_bin .. "codelldb",
-				args = {"--port", "${port}"}
+				args = { "--port", "${port}" }
 			},
 		}
 
@@ -38,7 +38,7 @@ return {
 			end
 		end
 
-		dap.configurations.cpp = {{
+		dap.configurations.cpp = { {
 			name = "Launch file",
 			type = "codelldb",
 			request = "launch",
@@ -47,9 +47,9 @@ return {
 			end,
 			cwd = '${workspaceFolder}',
 			stopOnEntry = false,
-		}}
+		} }
 
-		dap.configurations.objcpp = {{
+		dap.configurations.objcpp = { {
 			name = "Launch file",
 			type = "codelldb",
 			request = "launch",
@@ -58,11 +58,11 @@ return {
 			end,
 			cwd = '${workspaceFolder}',
 			stopOnEntry = false,
-		}}
+		} }
 
-		dap.configurations.python = {{
+		dap.configurations.python = { {
 			name = "Launch file",
-			type = 'python', 
+			type = 'python',
 			request = 'launch',
 			program = "${file}",
 			pythonPath = function()
@@ -72,7 +72,7 @@ return {
 					return os.getenv('VIRTUAL_ENV') .. '/bin/python'
 				end
 			end
-		}}
+		} }
 
 		local dapui = require("dapui")
 		dapui.setup()
@@ -87,9 +87,5 @@ return {
 		dap.listeners.before.event_exited["dapui_config"] = function()
 			dapui.close()
 		end
-
-		vim.keymap.set("n", "<space>db", "<cmd>DapToggleBreakpoint<CR>")
-		vim.keymap.set("n", "<space>dr", "<cmd>DapContinue<CR>")
-		vim.keymap.set("n", "<space>dl", "<cmd>DapShowLog<CR>")
 	end
 }

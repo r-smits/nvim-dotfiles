@@ -6,7 +6,8 @@ return {
 		configs.setup({
 			ensure_installed = {
 				"cpp",
-				"lua"
+				"lua",
+				"python",
 			},
 			highlight = {
 				enable = true,
