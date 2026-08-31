@@ -10,33 +10,26 @@ return {
 	vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" }),
 
 	-- Telescope
-	vim.keymap.set("n", "<D-g>", "<cmd>Telescope buffers<CR>"),
+	vim.keymap.set('n', '<D-b>', require('telescope.builtin').lsp_references, { desc = 'All references' }),
+	vim.keymap.set("n", "<D-g>", "<cmd>Telescope buffers<CR>", { desc = "all open buffers" }),
 	vim.keymap.set("n", "<D-f>", "<cmd>Telescope live_grep<CR>"),
 	vim.keymap.set("n", "<D-space>", "<cmd>Telescope find_files<CR>"),
 
 	-- Venv
 	vim.keymap.set("n", ",v", "<cmd>VenvSelect<cr>"),
 
-
 	-- LSP(s)
-	-- vim.keymap.set('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', { desc = 'Go to definition (list)' }),
 	vim.keymap.set('n', '<space>e', vim.diagnostic.open_float),
+	vim.keymap.set("n", "<space>s", vim.diagnostic.show),
 	vim.keymap.set("n", "K", vim.lsp.buf.hover),
 	vim.keymap.set('n', 'gh', vim.lsp.buf.declaration),   -- for header files
 	vim.keymap.set('n', 'gd', vim.lsp.buf.definition),    -- for actual code
 	vim.keymap.set('n', 'gi', vim.lsp.buf.implementation), -- for inheritance
-
 	vim.keymap.set('n', '<space>sh', vim.lsp.buf.signature_help),
-	vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder),
-	vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder),
 	vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition),
 	vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename),
 	vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action),
 	vim.keymap.set('n', '<space>gr', vim.lsp.buf.references),
-	vim.keymap.set('n', '<space>frm',
-		function()
-			vim.lsp.buf.format { async = true }
-		end),
 
 	-- Debugging
 	vim.keymap.set("n", "<space>db", "<cmd>DapToggleBreakpoint<CR>"),
@@ -44,7 +37,7 @@ return {
 	vim.keymap.set("n", "<space>dl", "<cmd>DapShowLog<CR>"),
 
 	-- Formatting
-	vim.keymap.set("n", "<space>fm", "<cmd>lua vim.lsp.buf.format()<CR>"),
+	vim.keymap.set('n', '<space>fm', function() vim.lsp.buf.format { async = true } end),
 
 	-- Tree
 	vim.keymap.set("n", "<space>tt", "<cmd>NvimTreeToggle<CR>"),
@@ -52,5 +45,7 @@ return {
 	vim.keymap.set("n", "<space>ff", "<cmd>NvimTreeCollapseKeepBuffers<CR>"),
 	vim.keymap.set("n", "<space>//", "<cmd>NvimTreeFindFile<CR>"),
 
+	-- Misc
+	vim.keymap.set('i', '<S-Tab>', '<C-d>', { desc = "unindent with shift+tab" })
 
 }

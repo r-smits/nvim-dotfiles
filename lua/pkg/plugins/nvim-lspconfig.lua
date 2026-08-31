@@ -74,8 +74,6 @@ return {
 				}
 			}
 		})
-
-
 		vim.lsp.config("ruff", {
 			name = "ruff",
 			cmd = { "ruff", "server" },
@@ -102,7 +100,6 @@ return {
 				vim.fs.dirname(vim.fs.find('.git', { path = ".", upward = true })[1]),
 			},
 		})
-
 		vim.lsp.config("pylsp", {
 			name = "pylsp",
 			cmd = { "pylsp" },
