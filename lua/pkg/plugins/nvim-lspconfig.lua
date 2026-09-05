@@ -100,10 +100,9 @@ return {
 				vim.fs.dirname(vim.fs.find('.git', { path = ".", upward = true })[1]),
 			},
 		})
-		vim.lsp.config("pylsp", {
-			name = "pylsp",
-			cmd = { "pylsp" },
-			autostart = true,
+		vim.lsp.config("basedpyright", {
+			name = "basedpyright",
+			cmd = { "basedpyright-langserver", "--stdio" },
 			capabilities = capabilities,
 			filetypes = { "python" },
 			root_markers = {
@@ -112,43 +111,40 @@ return {
 					"Pipfile.lock",
 					"requirements.txt",
 					".git",
+					vim.fs.dirname(vim.fs.find('.git', { path = ".", upward = true })[1]),
 				},
-				vim.fs.dirname(vim.fs.find('.git', { path = ".", upward = true })[1]),
 			},
 			settings = {
-				pylsp = {
-					plugins = {
-						jedi_completion = {
-							enabled = true,
-							include_params = true,
-							include_class_objects = false, -- also complete classes as their own "object" entries
-							include_function_objects = false, -- same, for functions
-							fuzzy = true,
+				basedpyright = {
+					disableLanguageServices = false,
+					disableOrganizeImports = false,
+					disableTaggedHints = false,
+					analysis = {
+						diagnosticSeverityOverrides = {
+							reportUnknownMemberType = false,
 						},
-						jedi_hover = { enabled = true },
-						jedi_references = { enabled = true },
-						jedi_signature_help = { enabled = true },
-						jedi_symbols = {
-							enabled = true,
-							all_scopes = true,
-							include_import_symbols = true,
+						inlayHints = {
+							variableTypes = false,
+							callArgumentNames = false,
+							callArgumentNamesMatching = false,
+							functionReturnTypes = false,
+							genericTypes = false,
 						},
-						jedi_definition = {
-							enabled = true,
-							follow_imports = true,
-							follow_builtin_imports = true,
-							follow_builtin_definitions = true,
-						},
-						jedi_rename = { enabled = true },
-					}
+						useTypingExtensions = false,
+						fileEnumerationTimeout = 10,
+						autoImportCompletions = true,
+						autoFormatStrings = true,
+						autoSearchPaths = true,
+						diagnosticMode = "openFilesOnly"
+					},
 				}
-			},
+			}
 		})
 
 		local ensure_installed = {
 			"ruff",
 			"clangd",
-			"pylsp",
+			"basedpyright",
 			"lua_ls",
 		}
 
@@ -157,7 +153,8 @@ return {
 
 		vim.lsp.enable("lua_ls")
 		vim.lsp.enable("ruff")
-		vim.lsp.enable("pylsp")
+		-- vim.lsp.enable("pylsp")
+		vim.lsp.enable("basedpyright")
 		vim.lsp.enable("clangd")
 
 		-- Luasnip is a snippet engine that will trigger once autocomplete starts
@@ -196,14 +193,14 @@ return {
 			}),
 			window = {
 				completion = {
-					border = "solid",
+					border = "rounded",
 					winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
 					col_offset = 0,
 					side_padding = 0,
 					scrollbar = true,
 				},
 				documentation = {
-					border = "solid",
+					border = "rounded",
 					winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
 					col_offset = 0,
 					side_padding = 0,
