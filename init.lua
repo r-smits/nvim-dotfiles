@@ -4,6 +4,6 @@ vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.g.termguicolors = true
 
-vim.lsp.inlay_hint.enable(true)
+vim.lsp.inlay_hint.enable(false)
 
 require('pkg.lazy')

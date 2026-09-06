@@ -10,10 +10,10 @@ return {
 	vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" }),
 
 	-- Telescope
-	vim.keymap.set('n', '<D-b>', require('telescope.builtin').lsp_references, { desc = 'All references' }),
-	vim.keymap.set("n", "<D-g>", "<cmd>Telescope buffers<CR>", { desc = "all open buffers" }),
-	vim.keymap.set("n", "<D-f>", "<cmd>Telescope live_grep<CR>"),
-	vim.keymap.set("n", "<D-space>", "<cmd>Telescope find_files<CR>"),
+	vim.keymap.set('n', '<space>r', require('telescope.builtin').lsp_references, { desc = 'All references' }),
+	vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<CR>", { desc = "all open buffers" }),
+	vim.keymap.set("n", "<space>g", "<cmd>Telescope live_grep<CR>"),
+	vim.keymap.set("n", "<space>f", "<cmd>Telescope find_files<CR>"),
 
 	-- Venv
 	vim.keymap.set("n", ",v", "<cmd>VenvSelect<cr>"),
