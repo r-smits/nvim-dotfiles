@@ -1,5 +1,14 @@
 return {
 
+	-- Tree focus
+	vim.keymap.set("n", "<leader>cd", function()
+		local path = vim.fn.input("Path: ")
+		path = vim.fn.expand(path)
+		vim.cmd("cd " .. path)
+		vim.cmd("NvimTreeClose")
+		vim.cmd("NvimTreeOpen " .. path)
+	end, { desc = 'cd and open NvimTree at path' }),
+
 	-- Scrolling
 	vim.keymap.set("n", "<ScrollWheelUp>",
 		"<cmd>lua require('neoscroll').scroll(-0.1, {move_cursor=false; duration=25})<CR>"),
@@ -10,10 +19,10 @@ return {
 	vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" }),
 
 	-- Telescope
-	vim.keymap.set('n', '<D-b>', require('telescope.builtin').lsp_references, { desc = 'All references' }),
-	vim.keymap.set("n", "<D-g>", "<cmd>Telescope buffers<CR>", { desc = "all open buffers" }),
-	vim.keymap.set("n", "<D-f>", "<cmd>Telescope live_grep<CR>"),
-	vim.keymap.set("n", "<D-space>", "<cmd>Telescope find_files<CR>"),
+	vim.keymap.set('n', '<space>r', require('telescope.builtin').lsp_references, { desc = 'All references' }),
+	vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<CR>", { desc = "all open buffers" }),
+	vim.keymap.set("n", "<space>g", "<cmd>Telescope live_grep<CR>"),
+	vim.keymap.set("n", "<space>f", "<cmd>Telescope find_files<CR>"),
 
 	-- Venv
 	vim.keymap.set("n", ",v", "<cmd>VenvSelect<cr>"),
